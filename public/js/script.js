@@ -76,7 +76,7 @@ function deleteComment(id){
     });
 }
 
-//Search Using Ajax-Not Completed
+
 $("#select-cat").change(function(event){
     var selected_val=$(this).val();
     
@@ -89,9 +89,15 @@ $("#select-cat").change(function(event){
         success:function(response){
             $('#blog-section').empty();
             var html='<div class="row row-cols-1 row-cols-md-3">';
-            response.blogs.forEach(element => {
-                html+='<div class="col mb-4"><div class="card h-100"><img src="images/'+element.image+'" class="card-img-top w-100" alt="Blog Image"><div class="card-body"><h5 class="card-title">'+element.title+'</h5><p class="card-text">'+element.content.substr(0,100)+'</p><div><p class="text-small">Posted by:';
+            response.blogs.forEach(element => { 
+                html+='<div class="col mb-4"><div class="card h-100"><img src="images/'+element.image+'" class="card-img-top w-100" alt="Blog Image"><div class="card-body"><h5 class="card-title">'+element.title+'</h5><p class="card-text">'+element.content.substr(0,100)+'</p><div><p class="text-small">Posted by:'+element.user.name+' on '+moment(element.created_at).format('DD/MM/YYYY HH::MM')+'</p></div><div class="mb-2 mt-0">';
+                element.categories.forEach(sub_element=>{
+                    html+='<span class="badge badge-success py-1 px-2 mr-1">'+sub_element.name+'</span>';
+                });
+                html+='</div><a href="blogs/'+element.id+'" class="btn btn-primary">View More</a></div></div></div>';
             });
+
+            html+='</div>'
 
             $('#blog-section').prepend(html);
         },

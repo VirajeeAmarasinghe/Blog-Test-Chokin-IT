@@ -124,10 +124,10 @@ class BlogController extends Controller
        
     }
 
-    //Search using Ajax-Not Completed
+    
     public function search(Request $request, $category){
                 
-        $blogs=Blog::whereHas('categories', function($q) use($request) {
+        $blogs=Blog::with(['user','categories'])->whereHas('categories', function($q) use($request) {
             $q->where('category_id', "=",$request->get("selected_cat"));
         })->get();
 
