@@ -131,9 +131,6 @@ class BlogController extends Controller
             $q->where('category_id', "=",$request->get("selected_cat"));
         })->get();
 
-        echo '<div class="row row-cols-1 row-cols-md-3">';
-        
-            
         return response()->json(["blogs"=>$blogs]);
     }
 }
